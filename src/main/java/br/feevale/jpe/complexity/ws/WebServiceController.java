@@ -53,7 +53,10 @@ public class WebServiceController {
      * @param challengeNumber
      * @return ResponseEntity
      */
-    @GetMapping("/challenge/{challengeNumber}")
+    @GetMapping(
+            value = "/challenge/{challengeNumber}",
+            produces = MediaType.TEXT_PLAIN_VALUE
+    )
     public ResponseEntity challengeOne(@PathVariable final int challengeNumber) {
         // Finds the challenge by it's number
         Challenge challenge = getChallengeByNumber(challengeNumber).
@@ -68,7 +71,7 @@ public class WebServiceController {
             sb.append(k).append("=").append(v).append('\n');
         });
         // Appends the information about the time it took to run
-        String answer = sb.append(
+        String answer = sb.append("Time (ns) = ").append(
                 new SimpleDateFormat("ss.SSS").format(new Date(end - start))
         ).toString();
         return ResponseEntity.ok(answer);
