@@ -57,7 +57,7 @@ public class WebServiceController {
             value = "/challenge/{challengeNumber}",
             produces = MediaType.TEXT_PLAIN_VALUE
     )
-    public ResponseEntity challengeOne(@PathVariable final int challengeNumber) {
+    public ResponseEntity challenge(@PathVariable final int challengeNumber) {
         // Finds the challenge by it's number
         Challenge challenge = getChallengeByNumber(challengeNumber).
                 orElseThrow(() -> new InvalidParameterException("Invalid challenge: " + challengeNumber));
@@ -89,7 +89,7 @@ public class WebServiceController {
             produces = MediaType.APPLICATION_PDF_VALUE
     )
     public @ResponseBody
-    byte[] getImageWithMediaType(@PathVariable final int challengeNumber) throws IOException {
+    byte[] attachment(@PathVariable final int challengeNumber) throws IOException {
         // Finds the challenge by it's number
         Challenge challenge = getChallengeByNumber(challengeNumber).
                 orElseThrow(() -> new InvalidParameterException("Invalid challenge: " + challengeNumber));
