@@ -61,9 +61,11 @@ public class ChallengeThree implements Challenge {
      * @return Map
      */
     @Override
-    public final Map run() {
-        Object answer = myAlgorithm(1_000);
+    public final Map run(Map params) {
+        int target = Integer.valueOf(params.getOrDefault("target", 1_000).toString());
+        Object answer = myAlgorithm(target);
         return Maps.create()
+                .put("target", String.valueOf(target))
                 .put("answer", answer.toString())
                 .get();
 

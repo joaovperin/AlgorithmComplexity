@@ -62,10 +62,14 @@ public class ChallengeTwo implements Challenge {
      * @return Map
      */
     @Override
-    public final Map run() {
-        Object answer = myAlgorithm(1_000_000, 2_000_000);
+    public final Map run(Map params) {
+        int i0 = Integer.valueOf(params.getOrDefault("i0", 1_000_000).toString());
+        int iF = Integer.valueOf(params.getOrDefault("iF", 2_000_000).toString());
+        Object answer = myAlgorithm(i0, iF);
         return Maps.create()
                 .put("answer", answer.toString())
+                .put("i0", String.valueOf(i0))
+                .put("iF", String.valueOf(iF))
                 .get();
 
     }

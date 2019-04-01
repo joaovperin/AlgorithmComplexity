@@ -17,6 +17,7 @@
 package br.feevale.jpe.complexity.challenges;
 
 import java.util.Map;
+import org.springframework.lang.Nullable;
 
 /**
  * Represents a challenge
@@ -49,8 +50,9 @@ public interface Challenge {
     /**
      * Runs the challenge
      *
+     * @param params
      * @return Map
      */
-    public Map run();
+    public Map run(@Nullable Map params);
 
 }

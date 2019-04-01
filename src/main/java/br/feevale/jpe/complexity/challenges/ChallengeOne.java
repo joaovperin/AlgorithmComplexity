@@ -62,7 +62,7 @@ public class ChallengeOne implements Challenge {
      * @return Map
      */
     @Override
-    public final Map run() {
+    public final Map run(Map params) {
         return Maps.create()
                 .put("answer", dfmt.format(myAlgorithm()))
                 .get();

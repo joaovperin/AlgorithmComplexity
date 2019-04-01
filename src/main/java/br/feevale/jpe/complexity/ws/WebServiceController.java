@@ -29,10 +29,12 @@ import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -51,19 +53,21 @@ public class WebServiceController {
      * Runs a challenge
      *
      * @param challengeNumber
+     * @param params
      * @return ResponseEntity
      */
     @GetMapping(
             value = "/challenge/{challengeNumber}",
             produces = MediaType.TEXT_PLAIN_VALUE
     )
-    public ResponseEntity challenge(@PathVariable final int challengeNumber) {
+    public ResponseEntity challenge(@PathVariable final int challengeNumber,
+            @Nullable @RequestParam Map params) {
         // Finds the challenge by it's number
         Challenge challenge = getChallengeByNumber(challengeNumber).
                 orElseThrow(() -> new InvalidParameterException("Invalid challenge: " + challengeNumber));
         // Runs the challenge capturing the start and end times
         long start = System.nanoTime();
-        Map data = challenge.run();
+        Map data = challenge.run(params);
         long end = System.nanoTime();
         // Creates an answer object with all the data
         StringBuilder sb = new StringBuilder(1024);
