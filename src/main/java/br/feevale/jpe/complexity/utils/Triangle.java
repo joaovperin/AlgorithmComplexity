@@ -29,29 +29,29 @@ import java.util.Stack;
 public class Triangle {
 
     /** A stack for each line of the triangle */
-    private final Stack<List<Integer>> stack;
+    private final Stack<List<Long>> stack;
 
     /**
      * Default constructor
      */
     public Triangle() {
         this.stack = new Stack<>();
-        this.stack.push(Arrays.asList(1));
+        this.stack.push(Arrays.asList(1L));
     }
 
     /**
      * Adds a line to the triangle
      */
     public void addLine() {
-        List<Integer> line = this.stack.peek();
-        ArrayList<Integer> newLine = new ArrayList<>();
-        newLine.add(1);
+        List<Long> line = this.stack.peek();
+        ArrayList<Long> newLine = new ArrayList<>();
+        newLine.add(1L);
         // Adds the sum of the elements to a new line on the stack
         for (int i = 0; i < line.size() - 1; i++) {
-            int newElm = line.get(i) + line.get(i + 1);
+            long newElm = line.get(i) + line.get(i + 1);
             newLine.add(newElm);
         }
-        newLine.add(1);
+        newLine.add(1L);
         stack.push(newLine);
     }
 
@@ -60,7 +60,7 @@ public class Triangle {
      *
      * @return Stack
      */
-    public Stack<List<Integer>> getStack() {
+    public Stack<List<Long>> getStack() {
         return this.stack;
     }
 
@@ -72,7 +72,7 @@ public class Triangle {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        ArrayList<List<Integer>> arrayList = new ArrayList<>(stack);
+        ArrayList<List<Long>> arrayList = new ArrayList<>(stack);
         arrayList.forEach(e -> {
             e.forEach(i -> sb.append(i).append(" "));
             sb.append("\n");

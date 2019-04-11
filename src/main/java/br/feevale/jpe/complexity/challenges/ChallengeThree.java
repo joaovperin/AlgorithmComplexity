@@ -92,7 +92,7 @@ public class ChallengeThree implements Challenge {
         Triangle t = new Triangle();
         IntStream.range(1, target).forEach(x -> t.addLine());
         // Acumulattes all the elements from the stack
-        Stack<List<Integer>> s = t.getStack();
+        Stack<List<Long>> s = t.getStack();
         while (!s.isEmpty()) {
             s.pop().stream()
                     .filter(n -> (n & 0X1) == 0)
