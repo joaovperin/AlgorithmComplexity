@@ -17,11 +17,10 @@
 package br.feevale.jpe.complexity.ws;
 
 import br.feevale.jpe.complexity.challenges.Challenge;
+import br.feevale.jpe.complexity.utils.DurationFormatter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.InvalidParameterException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -76,7 +75,7 @@ public class WebServiceController {
         });
         // Appends the information about the time it took to run
         String answer = sb.append("Time (ns) = ").append(
-                new SimpleDateFormat("ss.SSS").format(new Date(end - start))
+                DurationFormatter.format(start, end)
         ).toString();
         return ResponseEntity.ok(answer);
     }

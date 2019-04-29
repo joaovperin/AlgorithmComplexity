@@ -19,7 +19,6 @@ package br.feevale.jpe.complexity.challenges;
 import br.feevale.jpe.complexity.utils.IntPair;
 import br.feevale.jpe.complexity.utils.Maps;
 import br.feevale.jpe.complexity.utils.Primes;
-import br.feevale.jpe.complexity.utils.SumMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -89,30 +88,49 @@ public class ChallengeTwo implements Challenge {
      *
      * @return long
      */
-    private Object myAlgorithm(int i0, int iF) {
+    private Object myAlgorithm(final int i0, final int iF) {
+        // Input Numbers
+        final int numAnswers = 3;
+
         // Creates a list of all the primes until F
         List<Integer> primes = Primes.primeNumbersTill(iF);
-        SumMap<Integer> map = new SumMap<>();
+        final int primesSize = primes.size();
+
+        // Aux variable for optimization
+        int maxIdx = primesSize - 1;
+
         // Accumulates each sum and how many times it apperars
-        for (int i = 0; i < primes.size(); i++) {
-            for (int j = primes.size() - 1; j >= i; j--) {
-                map.putAndSum(primes.get(i) + primes.get(j));
+        int map[] = new int[2 * iF + 1];
+        for (int i = 1; i < maxIdx + 1; i++) {
+            for (int j = maxIdx; j > i; j--) {
+                int sum = primes.get(i) + primes.get(j);
+                if (sum < i0) {
+                    break;
+                }
+                if (sum > iF) {
+                    maxIdx--;
+                    continue;
+                }
+                map[sum]++;
             }
         }
-        // Find's the 3 sums with the higher count
-        int m1 = i0, m2 = i0, m3 = i0;
-        for (int i = i0; i <= iF; i += 2) {
-            Integer get = map.get(i);
-            if (get > map.get(m1)) {
-                m1 = i;
-            } else if (get > map.get(m2)) {
-                m2 = i;
-            } else if (get > map.get(m3)) {
-                m3 = i;
+        // Buffer with the response
+        StringBuilder sb = new StringBuilder("\n");
+        // Finds the N sums with the higher count
+        int bestSoFar = 0;
+        for (int j = 0; j < numAnswers; j++) {
+            for (int i = 0; i < map.length; i++) {
+                if (map[i] >= map[bestSoFar]) {
+                    bestSoFar = i;
+                }
             }
+            // Appends the answer and destroy the original array :D
+            sb.append(String.format("%d = %d\n", bestSoFar - i0, map[bestSoFar]));
+            map[bestSoFar] = -1;
         }
         // Format the answer as a string
-        return String.format("Answer: %d, %d and %d.", m1, m2, m3);
+        String answer = sb.toString();
+        return answer;
     }
 
     /**
@@ -133,8 +151,12 @@ public class ChallengeTwo implements Challenge {
                 }
             }
         }
-        // Returns the list 
+        // Returns the list
         return pairs;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(new ChallengeTwo().myAlgorithm(1_000_000, 2_000_000));
     }
 
 }

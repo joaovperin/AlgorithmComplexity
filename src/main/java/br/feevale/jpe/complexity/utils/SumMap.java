@@ -42,7 +42,7 @@ public class SumMap<T> {
      *
      * @param value
      */
-    public void putAndSum(T value) {
+    public void putAndIncrementCount(T value) {
         this.map.put(value, this.map.getOrDefault(value, 0) + 1);
     }
 
